@@ -1,0 +1,19 @@
+# Node modülleri ve Angular dosyaları
+node_modules/
+dist/
+.angular/
+
+# Python ve AI Agent dosyaları
+__pycache__/
+.env
+*.pyc
+
+# Mac sistem dosyaları
+.DS_Store
+Thumbs.db
+
+# VS Code ayarları
+.vscode/
+
+# PDF'leri dahil etmemek için
+*.pdf

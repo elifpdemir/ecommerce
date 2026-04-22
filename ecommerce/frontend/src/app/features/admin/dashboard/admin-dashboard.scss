@@ -1,0 +1,99 @@
+.dashboard {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: #1a1a2e;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+
+  h2 {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #a78bfa;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+
+    a {
+      color: #cbd5e1;
+      text-decoration: none;
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+
+      &:hover {
+        background: rgba(255,255,255,0.1);
+        color: white;
+      }
+    }
+  }
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid #475569;
+  color: #94a3b8;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #e53e3e;
+    border-color: #e53e3e;
+    color: white;
+  }
+}
+
+.content {
+  flex: 1;
+  background: #f8fafc;
+  padding: 2.5rem;
+  overflow-y: auto;
+
+  h1 {
+    font-size: 1.6rem;
+    color: #1a1a2e;
+    margin-bottom: 2rem;
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .label {
+    font-size: 0.8rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+}
