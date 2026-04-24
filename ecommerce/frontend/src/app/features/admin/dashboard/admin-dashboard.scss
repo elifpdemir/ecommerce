@@ -61,11 +61,46 @@
   background: #f8fafc;
   padding: 2.5rem;
   overflow-y: auto;
+  
+  /* Add padding to the top if global hamburger is overlapping */
+  padding-top: 4rem;
 
-  h1 {
-    font-size: 1.6rem;
-    color: #1a1a2e;
+  .dashboard-header {
     margin-bottom: 2rem;
+
+    h1 {
+      font-size: 1.6rem;
+      color: #1a1a2e;
+      margin-bottom: 1rem;
+    }
+
+    .dashboard-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+
+      a {
+        text-decoration: none;
+        color: #64748b;
+        font-size: 0.95rem;
+        font-weight: 500;
+        padding: 0.4rem 0.6rem;
+        border-radius: 4px;
+        transition: all 0.2s;
+
+        &:hover {
+          color: #1a1a2e;
+          background: #f1f5f9;
+        }
+
+        &.active {
+          color: #1a1a2e;
+          background: #e2e8f0;
+        }
+      }
+    }
   }
 }
 
@@ -96,4 +131,14 @@
     font-weight: 700;
     color: #1a1a2e;
   }
+}
+
+.card.skeleton {
+  opacity: 0.5;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.25; }
 }

@@ -1,0 +1,172 @@
+{
+  "users": [
+    { "id": 1, "username": "admin", "role": "ADMIN", "email": "admin@ecommerce.com" },
+    { "id": 2, "username": "seller", "role": "SELLER", "email": "seller@ecommerce.com" },
+    { "id": 3, "username": "customer", "role": "CUSTOMER", "email": "customer@ecommerce.com" }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Wireless Headphones Pro",
+      "description": "Premium wireless headphones with active noise cancellation and 30-hour battery life.",
+      "price": 2599.99,
+      "category": "Electronics",
+      "categoryId": 1,
+      "stockQuantity": 50,
+      "imageUrl": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80",
+      "bestseller": true,
+      "sellerId": 2
+    },
+    {
+      "id": 2,
+      "name": "Mechanical Keyboard RGB",
+      "description": "Professional mechanical keyboard with fully customizable RGB lighting.",
+      "price": 3999.99,
+      "category": "Electronics",
+      "categoryId": 1,
+      "stockQuantity": 30,
+      "imageUrl": "https://images.unsplash.com/photo-1601445638532-1f2f8553e2c6?w=600&q=80",
+      "bestseller": true,
+      "sellerId": 2
+    },
+    {
+      "id": 3,
+      "name": "7-in-1 USB-C Hub",
+      "description": "Versatile USB-C hub with 4K HDMI, SD card reader, and fast charging support.",
+      "price": 899.99,
+      "category": "Electronics",
+      "categoryId": 1,
+      "stockQuantity": 100,
+      "imageUrl": "https://images.unsplash.com/photo-1625723044792-44de16ccb4e9?w=600&q=80",
+      "bestseller": false,
+      "sellerId": 2
+    },
+    {
+      "id": 4,
+      "name": "Adjustable Laptop Stand",
+      "description": "Aluminum alloy stand with 6 angle settings and non-slip base for ultimate ergonomics.",
+      "price": 1299.99,
+      "category": "Office & Accessories",
+      "categoryId": 2,
+      "stockQuantity": 75,
+      "imageUrl": "https://images.unsplash.com/photo-1593640408182-31c228fa3e6e?w=600&q=80",
+      "bestseller": true,
+      "sellerId": 2
+    },
+    {
+      "id": 5,
+      "name": "1080p HD Webcam",
+      "description": "Auto-focus webcam with built-in microphone, ideal for meetings and streaming.",
+      "price": 2299.99,
+      "category": "Electronics",
+      "categoryId": 1,
+      "stockQuantity": 40,
+      "imageUrl": "https://images.unsplash.com/photo-1587826080692-f439cd0b70da?w=600&q=80",
+      "bestseller": false,
+      "sellerId": 2
+    },
+    {
+      "id": 6,
+      "name": "Running Shoes - Air Max",
+      "description": "Air-cushioned sole, breathable mesh upper, suitable for daily wear and sports.",
+      "price": 1799.99,
+      "category": "Sports & Outdoor",
+      "categoryId": 3,
+      "stockQuantity": 60,
+      "imageUrl": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80",
+      "bestseller": false,
+      "sellerId": 2
+    },
+    {
+      "id": 7,
+      "name": "Premium Yoga Mat",
+      "description": "6mm thick non-slip surface, eco-friendly TPE material, includes carrying strap.",
+      "price": 549.99,
+      "category": "Sports & Outdoor",
+      "categoryId": 3,
+      "stockQuantity": 90,
+      "imageUrl": "https://images.unsplash.com/photo-1601925228269-8e9d7f27e9c7?w=600&q=80",
+      "bestseller": false,
+      "sellerId": 2
+    },
+    {
+      "id": 8,
+      "name": "Stainless Steel Thermos 750ml",
+      "description": "Keeps beverages hot for 18 hours and cold for 24 hours. Leak-proof lid.",
+      "price": 349.99,
+      "category": "Kitchen & Home",
+      "categoryId": 4,
+      "stockQuantity": 120,
+      "imageUrl": "https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=600&q=80",
+      "bestseller": false,
+      "sellerId": 2
+    },
+    {
+      "id": 9,
+      "name": "Polarized Sunglasses",
+      "description": "UV400 protection, lightweight titanium frame, polarized lenses for glare reduction.",
+      "price": 1199.99,
+      "category": "Clothing & Accessories",
+      "categoryId": 5,
+      "stockQuantity": 45,
+      "imageUrl": "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&q=80",
+      "bestseller": false,
+      "sellerId": 2
+    },
+    {
+      "id": 10,
+      "name": "Smart Watch - Sport Edition",
+      "description": "GPS, heart rate monitoring, IP68 water resistance, 7-day battery life.",
+      "price": 4999.99,
+      "category": "Electronics",
+      "categoryId": 1,
+      "stockQuantity": 25,
+      "imageUrl": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80",
+      "bestseller": false,
+      "sellerId": 2
+    },
+    {
+      "id": 11,
+      "name": "Multi-Pocket Backpack",
+      "description": "Water-resistant 40L capacity, laptop compartment, durable polyester construction.",
+      "price": 899.99,
+      "category": "Clothing & Accessories",
+      "categoryId": 5,
+      "stockQuantity": 80,
+      "imageUrl": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80",
+      "bestseller": false,
+      "sellerId": 2
+    },
+    {
+      "id": 12,
+      "name": "Ceramic Coffee Set",
+      "description": "6-piece handmade ceramic coffee cup set, comes in an elegant gift box.",
+      "price": 699.99,
+      "category": "Kitchen & Home",
+      "categoryId": 4,
+      "stockQuantity": 35,
+      "imageUrl": "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=600&q=80",
+      "bestseller": false,
+      "sellerId": 2
+    }
+  ],
+  "categories": [
+    { "id": 1, "name": "Electronics" },
+    { "id": 2, "name": "Office & Accessories" },
+    { "id": 3, "name": "Sports & Outdoor" },
+    { "id": 4, "name": "Kitchen & Home" },
+    { "id": 5, "name": "Clothing & Accessories" }
+  ],
+  "orders": [
+    { "id": 1, "userId": 3, "productId": 1, "quantity": 2, "total": 5199.98, "status": "delivered", "createdAt": "2026-03-15" },
+    { "id": 2, "userId": 3, "productId": 3, "quantity": 1, "total": 899.99, "status": "shipped", "createdAt": "2026-04-01" },
+    { "id": 3, "userId": 3, "productId": 2, "quantity": 1, "total": 3999.99, "status": "pending", "createdAt": "2026-04-20" }
+  ],
+  "reviews": [
+    { "id": 1, "productId": 1, "userId": 3, "rating": 5, "comment": "Amazing sound quality!", "createdAt": "2026-03-20" },
+    { "id": 2, "productId": 1, "userId": 3, "rating": 4, "comment": "Very comfortable and lightweight.", "createdAt": "2026-03-22" },
+    { "id": 3, "productId": 1, "userId": 3, "rating": 5, "comment": "Best purchase I've ever made!", "createdAt": "2026-03-25" },
+    { "id": 4, "productId": 2, "userId": 3, "rating": 4, "comment": "Great keyboard, excellent key feel.", "createdAt": "2026-04-05" },
+    { "id": 5, "productId": 3, "userId": 3, "rating": 3, "comment": "Decent hub for the price.", "createdAt": "2026-04-10" }
+  ]
+}

@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
   styleUrl: './payment.scss'
 })
 export class PaymentComponent implements OnInit {
-  @Input() amount: number = 0;       // kuruş cinsinden (100 = $1.00)
+  @Input() amount: number = 0;       // in smallest currency unit (100 = $1.00)
   @Input() orderId: string = '';
 
   private stripe: Stripe | null = null;

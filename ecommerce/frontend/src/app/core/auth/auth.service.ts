@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
 
+import { of } from 'rxjs';
+
+// export type... is below
 export type UserRole = 'ADMIN' | 'SELLER' | 'CUSTOMER';
 
 export interface AuthResponse {
@@ -19,9 +22,20 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(username: string, password: string) {
-    return this.http.post<AuthResponse>(`${this.API}/login`, { username, password }).pipe(
+    // TEMPORARY: Returning a mock JWT since the backend is not yet available
+    const mockRole: UserRole = username.toLowerCase() === 'seller' ? 'SELLER' : (username.toLowerCase() === 'admin' ? 'ADMIN' : 'CUSTOMER');
+    
+    // {"role":"ADMIN","exp":9999999999}
+    const payloads: Record<UserRole, string> = {
+      ADMIN: 'eyJyb2xlIjoiQURNSU4iLCJleHAiOjk5OTk5OTk5OTl9',
+      SELLER: 'eyJyb2xlIjoiU0VMTEVSIiwiZXhwIjo5OTk5OTk5OTk5fQ==',
+      CUSTOMER: 'eyJyb2xlIjoiQ1VTVE9NRVIiLCJleHAiOjk5OTk5OTk5OTl9'
+    };
+
+    const mockToken = `dummy.${payloads[mockRole]}.dummy`;
+
+    return of({ token: mockToken, role: mockRole, username }).pipe(
       tap(res => {
-        // JWT'yi localStorage'a kaydet
         localStorage.setItem(this.TOKEN_KEY, res.token);
       })
     );

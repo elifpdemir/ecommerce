@@ -1,7 +1,10 @@
 langchain
 langgraph
 langchain-google-genai
-chainlit
+langchain-community
+fastapi
+uvicorn[standard]
 sqlalchemy
 pymysql
 python-dotenv
+PyJWT
