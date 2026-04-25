@@ -1,21 +1,28 @@
 package com.example.ecommerce_project.security;
 
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import jakarta.annotation.PostConstruct;
 import java.security.Key;
 import java.util.Date;
 
-import org.springframework.stereotype.Component;
-
-import io.jsonwebtoken.JwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-
 @Component
 public class JwtUtils {
-    private final String jwtSecret = "cokGizliVeUzunBirKeyBurayaGelecek1234567890"; 
-    private final int jwtExpirationMs = 86400000;
 
-    private final Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+    @Value("${app.jwt.secret:20015YEpeqwe07y39eto999EPD0709v1208}")
+    private String jwtSecret;
+
+    @Value("${app.jwt.expiration-ms:86400000}")
+    private int jwtExpirationMs;
+
+    private Key key;
+
+    @PostConstruct
+    public void init() {
+        this.key = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+    }
 
     public String generateToken(String email) {
         return Jwts.builder()
@@ -35,7 +42,7 @@ public class JwtUtils {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
-        } catch (JwtException e) {
+        } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }
