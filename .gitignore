@@ -50,4 +50,4 @@ Thumbs.db
 
 # PDF'leri dahil etmemek için
 *.pdf
-src/main/resources/application.properties
+src/main/resources/application.propertiessrc/main/resources/application.properties
