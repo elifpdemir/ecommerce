@@ -1,0 +1,48 @@
+<!-- Floating Button -->
+<button class="chat-toggle" (click)="toggle()" [class.open]="isOpen()">
+  <span class="icon" *ngIf="!isOpen()">💬</span>
+  <span class="icon" *ngIf="isOpen()">✕</span>
+</button>
+
+<!-- Chat Window -->
+<div class="chat-window" [class.visible]="isOpen()">
+  <div class="chat-header">
+    <div class="header-info">
+      <div class="avatar">AI</div>
+      <div>
+        <p class="name">AI Assistant</p>
+        <p class="status">● Online</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-messages" id="chat-messages">
+    <div
+      *ngFor="let msg of messages"
+      class="message"
+      [class.user]="msg.role === 'user'"
+      [class.bot]="msg.role === 'bot'"
+    >
+      <div class="bubble">{{ msg.text }}</div>
+      <span class="time">{{ msg.time }}</span>
+    </div>
+
+    <div class="message bot" *ngIf="loading">
+      <div class="bubble typing">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-input">
+    <textarea
+      [(ngModel)]="input"
+      (keydown)="onKeydown($event)"
+      placeholder="Ask a question... (press Enter to send)"
+      rows="1"
+    ></textarea>
+    <button (click)="send()" [disabled]="loading || !input.trim()">
+      ➤
+    </button>
+  </div>
+</div>

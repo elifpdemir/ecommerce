@@ -1,0 +1,93 @@
+<div class="cart-page">
+  <div class="cart-page__inner">
+
+    <!-- Header -->
+    <div class="cart-page__header">
+      <button class="back-btn" (click)="continueShopping()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+        </svg>
+        Continue Shopping
+      </button>
+      <h1 class="cart-page__title">My Cart</h1>
+      <span class="cart-page__count">{{ cartService.count() }} item(s)</span>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="cartService.items().length === 0" class="cart-empty">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+      </svg>
+      <p>Your cart is empty.</p>
+      <button class="btn-primary" (click)="continueShopping()">Browse Products</button>
+    </div>
+
+    <!-- Cart Content -->
+    <div *ngIf="cartService.items().length > 0" class="cart-content">
+
+      <!-- Items List -->
+      <div class="cart-items">
+        <div *ngFor="let item of cartService.items()" class="cart-item">
+          <img [src]="item.product.imageUrl" [alt]="item.product.name" class="cart-item__img" />
+
+          <div class="cart-item__info">
+            <span class="cart-item__category">{{ item.product.category }}</span>
+            <h3 class="cart-item__name">{{ item.product.name }}</h3>
+            <p class="cart-item__price">{{ item.product.price | number:'1.2-2' }} ₺</p>
+          </div>
+
+          <div class="cart-item__actions">
+            <div class="qty-control">
+              <button (click)="cartService.updateQuantity(item.product.id, item.quantity - 1)">−</button>
+              <input type="number" [value]="item.quantity" min="1"
+                (change)="updateQty(item.product.id, $event)" class="qty-input" />
+              <button (click)="cartService.updateQuantity(item.product.id, item.quantity + 1)">+</button>
+            </div>
+
+            <p class="cart-item__subtotal">
+              {{ item.product.price * item.quantity | number:'1.2-2' }} ₺
+            </p>
+
+            <button class="remove-btn" (click)="remove(item.product.id)" aria-label="Remove">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
+                <path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="cart-summary">
+        <h2 class="cart-summary__title">Order Summary</h2>
+
+        <div class="cart-summary__row">
+          <span>Subtotal</span>
+          <span>{{ cartService.total() | number:'1.2-2' }} ₺</span>
+        </div>
+        <div class="cart-summary__row">
+          <span>Shipping</span>
+          <span class="text-green">Free</span>
+        </div>
+        <div class="cart-summary__divider"></div>
+        <div class="cart-summary__row cart-summary__row--total">
+          <span>Total</span>
+          <strong>{{ cartService.total() | number:'1.2-2' }} ₺</strong>
+        </div>
+
+        <button class="btn-primary btn-full" (click)="checkout()">
+          Proceed to Checkout
+        </button>
+        <button class="btn-ghost btn-full" (click)="cartService.clearCart()">
+          Clear Cart
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

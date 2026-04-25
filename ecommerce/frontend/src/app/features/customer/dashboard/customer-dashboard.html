@@ -1,0 +1,39 @@
+<div class="dashboard">
+  <main class="content">
+    <div class="dashboard-header">
+      <h1>Welcome!</h1>
+      <nav class="dashboard-nav">
+        <a href="#" class="active">Overview</a>
+        <a href="#">Browse Products</a>
+        <a href="#">My Orders</a>
+        <a href="#">Reviews</a>
+      </nav>
+    </div>
+
+    <div class="cards" *ngIf="!loading; else skeleton">
+      <div class="card">
+        <span class="label">My Orders</span>
+        <span class="value">{{ stats.myOrders }}</span>
+      </div>
+      <div class="card">
+        <span class="label">Pending</span>
+        <span class="value">{{ stats.pendingOrders }}</span>
+      </div>
+      <div class="card">
+        <span class="label">Reviews</span>
+        <span class="value">{{ stats.myReviews }}</span>
+      </div>
+    </div>
+
+    <ng-template #skeleton>
+      <div class="cards">
+        <div class="card skeleton" *ngFor="let i of [1,2,3]">
+          <span class="label">Loading...</span>
+          <span class="value">—</span>
+        </div>
+      </div>
+    </ng-template>
+  </main>
+</div>
+
+<app-chatbot />

@@ -1,0 +1,93 @@
+<!-- Hamburger Trigger Button — always fixed top-left -->
+<button
+  class="hamburger"
+  (click)="toggle()"
+  *ngIf="!isOpen"
+  [class.hamburger--open]="isOpen"
+  aria-label="Open menu"
+  id="side-menu-toggle"
+>
+  <span class="bar"></span>
+  <span class="bar"></span>
+  <span class="bar"></span>
+</button>
+
+<!-- 3 Dots Trigger Button for Dashboard Options -->
+<button
+  class="three-dots-toggle"
+  (click)="toggle()"
+  *ngIf="!isOpen"
+  aria-label="Open dashboard options"
+  id="three-dots-toggle"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="5" r="1.5"></circle>
+    <circle cx="12" cy="12" r="1.5"></circle>
+    <circle cx="12" cy="19" r="1.5"></circle>
+  </svg>
+</button>
+
+<!-- Backdrop -->
+<div
+  class="backdrop"
+  [class.backdrop--visible]="isOpen"
+  (click)="close()"
+></div>
+
+<!-- Slide-in Panel -->
+<aside class="side-panel" [class.side-panel--open]="isOpen">
+
+  <!-- Header -->
+  <div class="side-panel__header">
+    <span class="side-panel__brand">STORE</span>
+    <button class="side-panel__close" (click)="close()" aria-label="Close menu">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Nav items -->
+  <nav class="side-panel__nav">
+    <button
+      *ngFor="let item of visibleItems"
+      class="nav-item"
+      (click)="navigate(item.route)"
+    >
+      <svg class="nav-item__icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+        stroke-linecap="round" stroke-linejoin="round">
+        <path [attr.d]="item.icon"/>
+      </svg>
+      <span>{{ item.label }}</span>
+    </button>
+  </nav>
+
+  <!-- Footer -->
+  <div class="side-panel__footer">
+    <ng-container *ngIf="isLoggedIn; else loginBlock">
+      <button class="logout-btn" (click)="logout()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Sign Out
+      </button>
+    </ng-container>
+    <ng-template #loginBlock>
+      <button class="login-btn" (click)="navigate('/login')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+          fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+          <polyline points="10 17 15 12 10 7"/>
+          <line x1="15" y1="12" x2="3" y2="12"/>
+        </svg>
+        Sign In
+      </button>
+    </ng-template>
+  </div>
+
+</aside>

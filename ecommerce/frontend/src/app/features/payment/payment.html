@@ -1,0 +1,27 @@
+<div class="payment-container">
+  <div class="payment-card" *ngIf="!success">
+    <h2>Complete Payment</h2>
+    <p class="amount">Total: ${{ (amount / 100).toFixed(2) }}</p>
+
+    <div class="card-wrapper">
+      <label>Card Details</label>
+      <div id="card-element"></div>
+    </div>
+
+    <p class="error" *ngIf="error">{{ error }}</p>
+
+    <button (click)="pay()" [disabled]="loading">
+      {{ loading ? 'Processing...' : 'Pay Now' }}
+    </button>
+
+    <p class="test-hint">
+      Test card: <strong>4242 4242 4242 4242</strong> — any future date & CVC
+    </p>
+  </div>
+
+  <div class="success-card" *ngIf="success">
+    <div class="checkmark">✓</div>
+    <h2>Payment Successful!</h2>
+    <p>Your order has been confirmed.</p>
+  </div>
+</div>

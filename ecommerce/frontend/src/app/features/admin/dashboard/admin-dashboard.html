@@ -1,0 +1,44 @@
+<div class="dashboard">
+  <main class="content">
+    <div class="dashboard-header">
+      <h1>Welcome, Admin</h1>
+      <nav class="dashboard-nav">
+        <a href="#" class="active">Overview</a>
+        <a href="#">Users</a>
+        <a href="#">Products</a>
+        <a href="#">Orders</a>
+        <a href="#">Analytics</a>
+      </nav>
+    </div>
+
+    <div class="cards" *ngIf="!loading; else skeleton">
+      <div class="card">
+        <span class="label">Total Users</span>
+        <span class="value">{{ stats.totalUsers }}</span>
+      </div>
+      <div class="card">
+        <span class="label">Total Orders</span>
+        <span class="value">{{ stats.totalOrders }}</span>
+      </div>
+      <div class="card">
+        <span class="label">Revenue</span>
+        <span class="value">${{ stats.totalRevenue | number:'1.2-2' }}</span>
+      </div>
+      <div class="card">
+        <span class="label">Products</span>
+        <span class="value">{{ stats.totalProducts }}</span>
+      </div>
+    </div>
+
+    <ng-template #skeleton>
+      <div class="cards">
+        <div class="card skeleton" *ngFor="let i of [1,2,3,4]">
+          <span class="label">Loading...</span>
+          <span class="value">—</span>
+        </div>
+      </div>
+    </ng-template>
+  </main>
+</div>
+
+<app-chatbot />
