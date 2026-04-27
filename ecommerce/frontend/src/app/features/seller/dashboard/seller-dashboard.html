@@ -1,0 +1,131 @@
+<div class="dashboard">
+  <main class="content">
+    <div class="dashboard-header">
+      <h1>Welcome, Seller</h1>
+      <nav class="dashboard-nav">
+        <a style="cursor: pointer" (click)="$event.preventDefault(); setTab('Overview')" [class.active]="activeTab === 'Overview'">Overview</a>
+        <a style="cursor: pointer" (click)="$event.preventDefault(); setTab('Products')" [class.active]="activeTab === 'Products'">My Products</a>
+        <a style="cursor: pointer" (click)="$event.preventDefault(); setTab('Orders')" [class.active]="activeTab === 'Orders'">Orders</a>
+        <a style="cursor: pointer" (click)="$event.preventDefault(); setTab('Reviews')" [class.active]="activeTab === 'Reviews'">Reviews</a>
+      </nav>
+    </div>
+
+    <div *ngIf="activeTab === 'Overview'">
+      <div class="cards" *ngIf="!loading; else skeleton">
+      <div class="card">
+        <span class="label">My Products</span>
+        <span class="value">{{ stats.myProducts }}</span>
+      </div>
+      <div class="card">
+        <span class="label">Orders</span>
+        <span class="value">{{ stats.myOrders }}</span>
+      </div>
+      <div class="card">
+        <span class="label">Revenue</span>
+        <span class="value">${{ stats.myRevenue | number:'1.2-2' }}</span>
+      </div>
+      <div class="card">
+        <span class="label">Reviews</span>
+        <span class="value">{{ stats.myReviews }}</span>
+      </div>
+    </div>
+
+    <div style="background: white; padding: 2rem; border-radius: 8px; margin-top: 2rem; max-width: 400px; margin-left: auto; margin-right: auto;">
+      <h3 style="text-align: center; margin-top: 0;">Order Status Analytics</h3>
+      <canvas #sellerChart></canvas>
+    </div>
+
+      </div> <!-- End Overview -->
+
+    <div *ngIf="activeTab === 'Products'" style="margin-top: 2rem;">
+      <h2>My Products</h2>
+      <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3>Add New Product</h3>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <input type="text" placeholder="Name" [(ngModel)]="newProduct.name" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+          <input type="number" placeholder="Price" [(ngModel)]="newProduct.price" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+          <input type="number" placeholder="Category ID" [(ngModel)]="newProduct.categoryId" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+          <input type="text" placeholder="SKU" [(ngModel)]="newProduct.sku" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+          <button (click)="createProduct()" [disabled]="!myStoreId" style="padding: 0.5rem 1rem; background: #6366f1; color: white; border: none; border-radius: 4px; cursor: pointer;">Add</button>
+        </div>
+        <p *ngIf="!myStoreId" style="color: red; margin-top: 0.5rem; font-size: 0.875rem;">Store not found. You cannot add products.</p>
+      </div>
+
+      <table *ngIf="products.length > 0" style="width: 100%; background: white; border-radius: 8px;">
+        <thead>
+          <tr>
+            <th style="padding: 1rem; text-align: left;">ID</th>
+            <th style="padding: 1rem; text-align: left;">Name</th>
+            <th style="padding: 1rem; text-align: left;">Price</th>
+            <th style="padding: 1rem; text-align: left;">SKU</th>
+            <th style="padding: 1rem; text-align: left;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of products" style="border-top: 1px solid #eee;">
+            <td style="padding: 1rem;">{{ p.id }}</td>
+            <td style="padding: 1rem;">{{ p.name }}</td>
+            <td style="padding: 1rem;">{{ p.price | currency }}</td>
+            <td style="padding: 1rem;">{{ p.sku }}</td>
+            <td style="padding: 1rem;">
+              <button (click)="updateProductPrice(p)" style="padding: 0.25rem 0.5rem; background: #fbbf24; color: white; border: none; border-radius: 4px; cursor: pointer; margin-right: 0.5rem;">Edit Price</button>
+              <button (click)="deleteProduct(p.id)" style="padding: 0.25rem 0.5rem; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="products.length === 0">No products found.</p>
+    </div>
+    <div *ngIf="activeTab === 'Orders'" style="margin-top: 2rem;">
+      <h2>Store Orders</h2>
+      <table *ngIf="orders.length > 0" style="width: 100%; background: white; border-radius: 8px; margin-top: 1rem;">
+        <thead>
+          <tr>
+            <th style="padding: 1rem; text-align: left;">Invoice No</th>
+            <th style="padding: 1rem; text-align: left;">Amount</th>
+            <th style="padding: 1rem; text-align: left;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders" style="border-top: 1px solid #eee;">
+            <td style="padding: 1rem;">{{ order.invoiceNo || order.invoice_no }}</td>
+            <td style="padding: 1rem;">{{ (order.grandTotal || order.grand_total) | currency }}</td>
+            <td style="padding: 1rem;">
+              <select [ngModel]="order.status" (ngModelChange)="updateOrderStatus(order, $event)" style="padding: 0.5rem; border-radius: 4px; border: 1px solid #ddd;">
+                <option *ngFor="let s of availableStatuses" [value]="s">{{ s }}</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="orders.length === 0">No orders found.</p>
+    </div>
+
+    <div *ngIf="activeTab === 'Reviews'" style="margin-top: 2rem;">
+      <h2>Product Reviews</h2>
+      <div *ngIf="reviews.length > 0" style="display: grid; gap: 1rem; margin-top: 1rem;">
+        <div *ngFor="let review of reviews" style="background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div style="color: #fbbf24; font-size: 1.25rem;">
+              {{ '★'.repeat(review.starRating || review.star_rating) }}{{ '☆'.repeat(5 - (review.starRating || review.star_rating)) }}
+            </div>
+            <span style="color: #6b7280; font-size: 0.875rem;">{{ (review.reviewDate || review.review_date) | date }}</span>
+          </div>
+          <h3 style="margin: 0 0 0.5rem 0;">{{ review.reviewHead || review.review_head }}</h3>
+          <p style="margin: 0; color: #4b5563;">{{ review.reviewBody || review.review_body }}</p>
+        </div>
+      </div>
+      <p *ngIf="reviews.length === 0">No reviews found.</p>
+    </div>
+
+    <ng-template #skeleton>
+      <div class="cards">
+        <div class="card skeleton" *ngFor="let i of [1,2,3,4]">
+          <span class="label">Loading...</span>
+          <span class="value">—</span>
+        </div>
+      </div>
+    </ng-template>
+  </main>
+</div>
+

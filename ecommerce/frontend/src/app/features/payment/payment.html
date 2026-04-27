@@ -1,0 +1,23 @@
+<div class="payment-container">
+  <div class="payment-card">
+    <h2>Payment Details</h2>
+    <div class="amount">
+      Total Amount: {{ totalAmount | currency }}
+    </div>
+
+    <form id="payment-form" (submit)="handlePayment($event)">
+      <div class="card-wrapper">
+        <label for="card-element">Credit or debit card</label>
+        <div id="card-element"></div>
+      </div>
+
+      <div id="card-errors" class="error" role="alert"></div>
+
+      <button [disabled]="isProcessing" id="submit-button">
+        {{ isProcessing ? 'Processing...' : 'Pay Now' }}
+      </button>
+      
+      <p class="test-hint">Test mode is active. Use Stripe test cards.</p>
+    </form>
+  </div>
+</div>

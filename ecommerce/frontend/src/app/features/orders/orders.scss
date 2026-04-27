@@ -1,0 +1,132 @@
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f7fa;
+}
+
+.content {
+  flex: 1;
+  padding: 2rem 3rem;
+  margin-left: 250px; // matches side-menu width usually, though it slides in. 
+  // Let's assume standard layout from other dashboards.
+  transition: padding 0.3s ease;
+  
+  @media (max-width: 768px) {
+    padding: 1.5rem;
+    margin-left: 0;
+  }
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+  
+  h1 {
+    font-size: 2rem;
+    color: #1a1a2e;
+    font-weight: 700;
+  }
+}
+
+.table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  th {
+    text-align: left;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    border-bottom: 2px solid #e9ecef;
+  }
+  
+  td {
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+    color: #212529;
+  }
+  
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.35em 0.65em;
+  font-size: 0.85em;
+  font-weight: 600;
+  border-radius: 4px;
+  text-transform: capitalize;
+  
+  &.pending {
+    background-color: #fff3cd;
+    color: #856404;
+  }
+  
+  &.approved {
+    background-color: #d1ecf1;
+    color: #0c5460;
+  }
+  
+  &.shipped {
+    background-color: #cce5ff;
+    color: #004085;
+  }
+  
+  &.delivered {
+    background-color: #d4edda;
+    color: #155724;
+  }
+}
+
+.status-select {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  font-size: 0.9rem;
+  color: #495057;
+  background-color: #fff;
+  cursor: pointer;
+  
+  &:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+}
+
+.skeleton-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+  .skeleton-row {
+    height: 60px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

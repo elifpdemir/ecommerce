@@ -1,0 +1,97 @@
+.payment-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f0f2f5;
+}
+
+.payment-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 460px;
+
+  h2 {
+    margin: 0 0 0.5rem;
+    color: #1a1a2e;
+  }
+
+  .amount {
+    color: #4f46e5;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+}
+
+.card-wrapper {
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+
+  #card-element {
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: border-color 0.2s;
+
+    &:focus-within {
+      border-color: #4f46e5;
+    }
+  }
+}
+
+.error {
+  color: #e53e3e;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+button {
+  width: 100%;
+  padding: 0.85rem;
+  background: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 1rem;
+
+  &:hover:not(:disabled) { background: #4338ca; }
+  &:disabled { opacity: 0.6; cursor: not-allowed; }
+}
+
+.test-hint {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.success-card {
+  background: white;
+  padding: 3rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+
+  .checkmark {
+    font-size: 3rem;
+    color: #10b981;
+    margin-bottom: 1rem;
+  }
+
+  h2 { color: #1a1a2e; margin-bottom: 0.5rem; }
+  p { color: #64748b; }
+}

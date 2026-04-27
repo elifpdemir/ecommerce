@@ -1,0 +1,200 @@
+.dashboard {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: #1e3a5f;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.5rem;
+
+  h2 {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: #93c5fd;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+
+    a {
+      color: #bfdbfe;
+      text-decoration: none;
+      padding: 0.6rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+
+      &:hover {
+        background: rgba(255,255,255,0.1);
+        color: white;
+      }
+    }
+  }
+}
+
+.logout-btn {
+  background: transparent;
+  border: 1px solid #1e40af;
+  color: #93c5fd;
+  padding: 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #e53e3e;
+    border-color: #e53e3e;
+    color: white;
+  }
+}
+
+.content {
+  flex: 1;
+  background: #f8fafc;
+  padding: 2.5rem;
+  overflow-y: auto;
+  
+  /* Add padding to the top if global hamburger is overlapping */
+  padding-top: 4rem;
+
+  .dashboard-header {
+    margin-bottom: 2rem;
+
+    h1 {
+      font-size: 1.6rem;
+      color: #1e3a5f;
+      margin-bottom: 1rem;
+    }
+
+    .dashboard-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 0.5rem;
+
+      a {
+        text-decoration: none;
+        color: #64748b;
+        font-size: 0.95rem;
+        font-weight: 500;
+        padding: 0.4rem 0.6rem;
+        border-radius: 4px;
+        transition: all 0.2s;
+
+        &:hover {
+          color: #1e3a5f;
+          background: #e0f2fe;
+        }
+
+        &.active {
+          color: #1e3a5f;
+          background: #bae6fd;
+        }
+      }
+    }
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .label {
+    font-size: 0.8rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e3a5f;
+  }
+}
+
+.card.skeleton {
+  opacity: 0.5;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.25; }
+}
+
+.reviews-list-container {
+  margin-top: 3rem;
+  
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1e3a5f;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.review-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border: 1px solid #f1f5f9;
+
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .review-stars {
+    color: #fbbf24;
+    font-size: 1rem;
+    letter-spacing: 2px;
+  }
+
+  .review-date {
+    font-size: 0.75rem;
+    color: #94a3b8;
+  }
+
+  .review-head {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+  }
+
+  .review-body {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.5;
+  }
+}

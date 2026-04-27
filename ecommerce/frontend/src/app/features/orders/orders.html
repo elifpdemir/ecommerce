@@ -1,0 +1,60 @@
+<div class="dashboard">
+  <app-side-menu></app-side-menu>
+  
+  <main class="content">
+    <div class="dashboard-header">
+      <h1>My Orders</h1>
+    </div>
+
+    <div class="table-container" *ngIf="!loading; else skeleton">
+      <div class="empty-state" *ngIf="orders.length === 0">
+        <p>No orders found.</p>
+      </div>
+      
+      <table *ngIf="orders.length > 0" class="orders-table">
+        <thead>
+          <tr>
+            <th>Invoice No</th>
+            <th>Date</th>
+            <th>Products</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+            <th *ngIf="role === 'CORPORATE'">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders">
+            <td>{{ order.invoiceNo || '#' + order.id }}</td>
+            <td>{{ order.orderDate | date:'mediumDate' }}</td>
+            <td>
+              <div *ngIf="order.productNames && order.productNames.length > 0">
+                <span *ngFor="let pName of order.productNames; let last = last">{{ pName }}{{ !last ? ', ' : '' }}</span>
+              </div>
+              <span *ngIf="!order.productNames || order.productNames.length === 0">-</span>
+            </td>
+            <td>{{ order.grandTotal | currency }}</td>
+            <td>
+              <span class="status-badge" [ngClass]="order.status.toLowerCase()">
+                {{ order.status }}
+              </span>
+            </td>
+            <td *ngIf="role === 'CORPORATE'">
+              <select 
+                class="status-select" 
+                [ngModel]="order.status" 
+                (ngModelChange)="updateStatus(order, $event)">
+                <option *ngFor="let s of availableStatuses" [value]="s">{{ s }}</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #skeleton>
+      <div class="skeleton-container">
+        <div class="skeleton-row" *ngFor="let i of [1,2,3,4]"></div>
+      </div>
+    </ng-template>
+  </main>
+</div>

@@ -1,0 +1,10 @@
+langchain
+langgraph
+langchain-google-genai
+langchain-community
+fastapi
+uvicorn[standard]
+sqlalchemy
+pymysql
+python-dotenv
+PyJWT

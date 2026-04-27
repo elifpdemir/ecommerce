@@ -1,0 +1,52 @@
+<div class="dashboard">
+  <main class="content">
+    <div class="dashboard-header">
+      <h1>Welcome!</h1>
+      <nav class="dashboard-nav">
+        <a routerLink="/customer/dashboard" class="active">Overview</a>
+        <a routerLink="/home">Browse Products</a>
+        <a routerLink="/orders">My Orders</a>
+      </nav>
+    </div>
+
+    <div class="cards" *ngIf="!loading; else skeleton">
+      <div class="card" routerLink="/orders" style="cursor: pointer;">
+        <span class="label">My Orders</span>
+        <span class="value">{{ stats.myOrders }}</span>
+      </div>
+      <div class="card" routerLink="/orders" style="cursor: pointer;">
+        <span class="label">Pending</span>
+        <span class="value">{{ stats.pendingOrders }}</span>
+      </div>
+      <div class="card" (click)="scrollToReviews()" style="cursor: pointer;">
+        <span class="label">Reviews</span>
+        <span class="value">{{ stats.myReviews }}</span>
+      </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div id="my-reviews" class="reviews-list-container" *ngIf="!loading && stats.myReviews > 0">
+      <h2 class="section-title">My Recent Reviews</h2>
+      <div class="reviews-grid">
+        <div *ngFor="let review of stats.recentReviews" class="review-card">
+          <div class="review-header">
+            <span class="review-stars">{{ '★'.repeat(review.starRating) }}{{ '☆'.repeat(5 - review.starRating) }}</span>
+            <span class="review-date">{{ review.reviewDate | date }}</span>
+          </div>
+          <h3 class="review-head">{{ review.reviewHead }}</h3>
+          <p class="review-body">{{ review.reviewBody }}</p>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #skeleton>
+      <div class="cards">
+        <div class="card skeleton" *ngFor="let i of [1,2,3]">
+          <span class="label">Loading...</span>
+          <span class="value">—</span>
+        </div>
+      </div>
+    </ng-template>
+  </main>
+</div>
+

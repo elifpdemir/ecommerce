@@ -1,0 +1,153 @@
+<div class="dashboard">
+  <main class="content">
+    <div class="dashboard-header">
+      <h1>Welcome, Admin</h1>
+      <nav class="dashboard-nav">
+        <a style="cursor: pointer" (click)="$event.preventDefault(); setTab('Overview')" [class.active]="activeTab === 'Overview'">Overview</a>
+        <a style="cursor: pointer" (click)="$event.preventDefault(); setTab('Products')" [class.active]="activeTab === 'Products'">Manage Products</a>
+        <a style="cursor: pointer" (click)="$event.preventDefault(); setTab('Stores')" [class.active]="activeTab === 'Stores'">Manage Stores</a>
+      </nav>
+    </div>
+
+    <div *ngIf="activeTab === 'Overview'">
+
+    <div class="cards" *ngIf="stats$ | async as stats; else skeleton">
+      <div class="card">
+        <span class="label">Total Users</span>
+        <span class="value">{{ stats.totalUsers || 0 }}</span>
+      </div>
+      <div class="card">
+        <span class="label">Total Orders</span>
+        <span class="value">{{ stats.totalOrders || 0 }}</span>
+      </div>
+      <div class="card">
+        <span class="label">Revenue</span>
+        <span class="value">{{ stats.totalRevenue | currency }}</span>
+      </div>
+      <div class="card">
+        <span class="label">Products</span>
+        <span class="value">{{ stats.totalProducts || 0 }}</span>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'Overview'" style="background: white; padding: 2rem; border-radius: 8px; margin-top: 2rem; max-width: 400px; margin-left: auto; margin-right: auto;">
+      <h3 style="text-align: center; margin-top: 0;">Platform Analytics</h3>
+      <canvas #adminChart></canvas>
+    </div>
+
+    <div class="table-container" *ngIf="(orders$ | async) as orderList">
+      <h2 *ngIf="orderList.length > 0" style="margin-top: 2rem;">Recent Orders</h2>
+      <table *ngIf="orderList.length > 0" style="width: 100%; background: white; border-radius: 8px;">
+        <thead>
+          <tr>
+            <th style="padding: 1rem;">Invoice No</th>
+            <th style="padding: 1rem;">Products</th>
+            <th style="padding: 1rem;">Amount</th>
+            <th style="padding: 1rem;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orderList">
+            <td style="padding: 1rem;">{{ order.invoiceNo || order.invoice_no }}</td>
+            <td style="padding: 1rem;">
+              <div *ngIf="order.productNames && order.productNames.length > 0">
+                <span *ngFor="let pName of order.productNames; let last = last">{{ pName }}{{ !last ? ', ' : '' }}</span>
+              </div>
+              <span *ngIf="!order.productNames || order.productNames.length === 0">-</span>
+            </td>
+            <td style="padding: 1rem;">{{ (order.grandTotal || order.grand_total) | currency }}</td>
+            <td style="padding: 1rem;">{{ order.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div> <!-- End Overview Tab -->
+
+    <div *ngIf="activeTab === 'Products'">
+      <h2>Manage Products</h2>
+      <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3>Add New Product</h3>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <input type="text" placeholder="Name" [(ngModel)]="newProduct.name" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+          <input type="number" placeholder="Price" [(ngModel)]="newProduct.price" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+          <input type="number" placeholder="Category ID" [(ngModel)]="newProduct.categoryId" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+          <input type="number" placeholder="Store ID" [(ngModel)]="newProduct.storeId" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+          <input type="text" placeholder="SKU" [(ngModel)]="newProduct.sku" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+          <button (click)="createProduct()" style="padding: 0.5rem 1rem; background: #6366f1; color: white; border: none; border-radius: 4px; cursor: pointer;">Add</button>
+        </div>
+      </div>
+
+      <table *ngIf="(products$ | async) as productList" style="width: 100%; background: white; border-radius: 8px;">
+        <thead>
+          <tr>
+            <th style="padding: 1rem; text-align: left;">ID</th>
+            <th style="padding: 1rem; text-align: left;">Name</th>
+            <th style="padding: 1rem; text-align: left;">Price</th>
+            <th style="padding: 1rem; text-align: left;">SKU</th>
+            <th style="padding: 1rem; text-align: left;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of productList" style="border-top: 1px solid #eee;">
+            <td style="padding: 1rem;">{{ p.id }}</td>
+            <td style="padding: 1rem;">{{ p.name }}</td>
+            <td style="padding: 1rem;">{{ p.price | currency }}</td>
+            <td style="padding: 1rem;">{{ p.sku }}</td>
+            <td style="padding: 1rem;">
+              <button (click)="deleteProduct(p.id)" style="padding: 0.25rem 0.5rem; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div *ngIf="activeTab === 'Stores'">
+      <h2>Manage Stores</h2>
+      <div style="background: white; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3>Add New Store</h3>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <input type="text" placeholder="Store Name" [(ngModel)]="newStore.name" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+          <input type="number" placeholder="Owner User ID" [(ngModel)]="newStore.ownerId" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+          <select [(ngModel)]="newStore.status" style="padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px;">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+          </select>
+          <button (click)="createStore()" style="padding: 0.5rem 1rem; background: #6366f1; color: white; border: none; border-radius: 4px; cursor: pointer;">Add</button>
+        </div>
+      </div>
+
+      <table *ngIf="(stores$ | async) as storeList" style="width: 100%; background: white; border-radius: 8px;">
+        <thead>
+          <tr>
+            <th style="padding: 1rem; text-align: left;">ID</th>
+            <th style="padding: 1rem; text-align: left;">Name</th>
+            <th style="padding: 1rem; text-align: left;">Owner ID</th>
+            <th style="padding: 1rem; text-align: left;">Status</th>
+            <th style="padding: 1rem; text-align: left;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of storeList" style="border-top: 1px solid #eee;">
+            <td style="padding: 1rem;">{{ s.id }}</td>
+            <td style="padding: 1rem;">{{ s.name }}</td>
+            <td style="padding: 1rem;">{{ s.ownerId || s.owner_id }}</td>
+            <td style="padding: 1rem;">{{ s.status }}</td>
+            <td style="padding: 1rem;">
+              <button (click)="deleteStore(s.id)" style="padding: 0.25rem 0.5rem; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #skeleton>
+      <div class="cards">
+        <div class="card skeleton" *ngFor="let i of [1,2,3,4]">
+          <span class="label">Yükleniyor...</span>
+          <span class="value">—</span>
+        </div>
+      </div>
+    </ng-template>
+  </main>
+</div>
+
